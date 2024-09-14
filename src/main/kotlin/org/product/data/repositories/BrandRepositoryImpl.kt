@@ -11,9 +11,11 @@ import org.springframework.dao.DataIntegrityViolationException
 class BrandRepositoryImpl(
     private val brandJpaRepository: BrandJpaRepository,
 ) : BrandRepository {
-    override fun create(entity: Brand) {
+    override fun create(entity: Brand): Brand {
         try {
-            brandJpaRepository.save(entity.toDataModel())
+            return brandJpaRepository
+                .save(entity.toDataModel())
+                .toDomainEntity()
         } catch (err: DataIntegrityViolationException) {
             throw InvariantViolationException(
                 message = err.message ?: "",
@@ -29,17 +31,33 @@ class BrandRepositoryImpl(
     }
 
     override fun update(
-        id: String,
+        id: Long,
         modifier: (Brand) -> Brand,
     ) {
         TODO("Not yet implemented")
     }
 
-    override fun delete(id: String) {
-        TODO("Not yet implemented")
+    override fun delete(id: Long) {
+        val dataModel =
+            brandJpaRepository
+                .findById(id)
+                .orElseThrow {
+                    throw InvariantViolationException(
+                        message = "Brand not found",
+                        errorProperties =
+                            listOf(
+                                ErrorProperty(
+                                    key = "id",
+                                    reason = ErrorProperty.ErrorReason.NotFound,
+                                ),
+                            ),
+                    )
+                }
+        val deletingDataModel = dataModel.delete()
+        brandJpaRepository.save(deletingDataModel)
     }
 
-    override fun findAll(): List<Brand> = brandJpaRepository.findAll().map { it.toDomainEntity() }
+    override fun findAll(): List<Brand> = brandJpaRepository.findAllByIsDeletedFalse().map { it.toDomainEntity() }
 
     override fun findByName(name: String): Brand? {
         TODO("Not yet implemented")

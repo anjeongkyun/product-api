@@ -7,5 +7,6 @@ data class ErrorProperty(
     enum class ErrorReason {
         NotAvailable,
         Duplicated,
+        NotFound
     }
 }

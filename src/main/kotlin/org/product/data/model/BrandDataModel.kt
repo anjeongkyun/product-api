@@ -9,4 +9,8 @@ data class BrandDataModel(
     val id: Long?,
     @Column(unique = true)
     val name: String,
-)
+
+    val isDeleted: Boolean,
+) {
+    fun delete(): BrandDataModel = this.copy(isDeleted = true)
+}

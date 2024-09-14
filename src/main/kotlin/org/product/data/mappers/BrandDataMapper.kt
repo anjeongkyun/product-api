@@ -7,6 +7,7 @@ fun Brand.toDataModel() =
     BrandDataModel(
         id = id,
         name = name,
+        isDeleted = false,
     )
 
 fun BrandDataModel.toDomainEntity() =
