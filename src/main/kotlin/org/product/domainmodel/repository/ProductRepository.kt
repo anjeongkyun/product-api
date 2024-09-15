@@ -6,7 +6,7 @@ interface ProductRepository {
     fun create(entity: Product): Product
 
     fun update(
-        id: String,
+        id: Long,
         modifier: (Product) -> Product,
     ): Product
 
@@ -16,4 +16,6 @@ interface ProductRepository {
     ): Product?
 
     fun findAll(): List<Product>
+
+    fun findById(id: Long): Product?
 }

@@ -12,6 +12,16 @@ data class Product(
     val createdDateTime: OffsetDateTime,
     val updatedDateTime: OffsetDateTime,
 ) {
+    fun update(
+        title: String,
+        amount: Money,
+    ): Product =
+        this.copy(
+            title = title,
+            amount = amount,
+            updatedDateTime = OffsetDateTime.now(),
+        )
+
     companion object {
         fun create(
             title: String,
