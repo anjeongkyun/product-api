@@ -3,13 +3,11 @@ package org.product.domainmodel.usecases.product
 import org.product.contracts.commands.UpdateProductCommand
 import org.product.domainmodel.exceptions.ErrorProperty
 import org.product.domainmodel.exceptions.InvariantViolationException
-import org.product.domainmodel.repository.BrandRepository
 import org.product.domainmodel.repository.ProductRepository
 import org.product.domainmodel.valueobject.Money
 
 class UpdateProductUseCase(
     private val productRepository: ProductRepository,
-    private val brandRepository: BrandRepository,
 ) {
     fun execute(command: UpdateProductCommand) {
         val updatingProduct = getProduct(command.id)

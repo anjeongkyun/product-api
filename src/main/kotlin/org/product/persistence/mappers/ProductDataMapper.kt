@@ -20,6 +20,7 @@ fun Product.toDataModel(): ProductDataModel =
             ),
         createdDateTime = this.createdDateTime,
         updatedDateTime = this.updatedDateTime,
+        isDeleted = false,
     )
 
 fun ProductDataModel.toDomainEntity(): Product =

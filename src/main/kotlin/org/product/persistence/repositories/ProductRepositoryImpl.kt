@@ -33,13 +33,22 @@ class ProductRepositoryImpl(
                 title = title,
             )?.toDomainEntity()
 
-    override fun findAll(): List<Product> = productJpaRepository.findAll().map { it.toDomainEntity() }
+    override fun findAll(): List<Product> =
+        productJpaRepository
+            .findAllByIsDeletedFalse()
+            .map { it.toDomainEntity() }
 
     override fun findById(id: Long): Product? =
         productJpaRepository
             .findById(id)
             .map { it.toDomainEntity() }
             .orElse(null)
+
+    override fun delete(id: Long) {
+        productJpaRepository
+            .save(get(id).toDataModel().delete())
+            .toDomainEntity()
+    }
 
     private fun get(id: Long): Product =
         productJpaRepository

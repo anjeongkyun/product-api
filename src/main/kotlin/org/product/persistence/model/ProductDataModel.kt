@@ -20,4 +20,8 @@ data class ProductDataModel(
     val createdDateTime: OffsetDateTime,
     @Column(name = "updated_date_time")
     val updatedDateTime: OffsetDateTime,
-)
+    @Column(name = "is_deleted")
+    val isDeleted: Boolean,
+) {
+    fun delete() = this.copy(isDeleted = true, updatedDateTime = OffsetDateTime.now())
+}

@@ -18,4 +18,6 @@ interface ProductRepository {
     fun findAll(): List<Product>
 
     fun findById(id: Long): Product?
+
+    fun delete(id: Long)
 }

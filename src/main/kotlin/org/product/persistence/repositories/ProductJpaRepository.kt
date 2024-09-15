@@ -33,4 +33,6 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
     fun findTopByCategoryOrderByAmountDesc(
         @Param("category") category: ProductCategory,
     ): List<ProductDataModel>
+
+    fun findAllByIsDeletedFalse(): List<ProductDataModel>
 }

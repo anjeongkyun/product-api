@@ -44,7 +44,7 @@ class SpecsForUpdateProductUseCase {
         val createdProduct1 = productRepository.create(product1.copy(id = null, brand = createdBrand))
         val createdProduct2 = productRepository.create(product2.copy(id = null, brand = createdBrand))
 
-        val sut = UpdateProductUseCase(productRepository, brandRepository)
+        val sut = UpdateProductUseCase(productRepository)
         val command =
             UpdateProductCommand(
                 id = createdProduct1.id!!,
@@ -67,7 +67,7 @@ class SpecsForUpdateProductUseCase {
     ) {
         // Arrange
         val createdBrand = brandRepository.create(brand.copy(id = null))
-        val sut = UpdateProductUseCase(productRepository, brandRepository)
+        val sut = UpdateProductUseCase(productRepository)
         val createdProduct = productRepository.create(product.copy(id = null, brand = createdBrand))
 
         val command =
