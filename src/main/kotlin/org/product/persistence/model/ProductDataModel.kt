@@ -2,7 +2,6 @@ package org.product.persistence.model
 
 import jakarta.persistence.*
 import org.product.domainmodel.entities.ProductCategory
-import org.product.domainmodel.valueobject.Money
 import java.time.OffsetDateTime
 
 @Entity
@@ -16,7 +15,7 @@ data class ProductDataModel(
     @ManyToOne
     @JoinColumn(name = "brand_id")
     val brand: BrandDataModel,
-    val amount: Money,
+    val amount: Long,
     @Column(name = "created_date_time")
     val createdDateTime: OffsetDateTime,
     @Column(name = "updated_date_time")

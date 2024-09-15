@@ -1,11 +1,9 @@
 package org.product
 
+import org.product.domainmodel.reader.ProductReader
 import org.product.domainmodel.repository.BrandRepository
 import org.product.domainmodel.repository.ProductRepository
-import org.product.persistence.repositories.BrandJpaRepository
-import org.product.persistence.repositories.BrandRepositoryImpl
-import org.product.persistence.repositories.ProductJpaRepository
-import org.product.persistence.repositories.ProductRepositoryImpl
+import org.product.persistence.repositories.*
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 
@@ -16,4 +14,7 @@ class TestRepositoryConfiguration {
 
     @Bean
     fun productRepository(productJpaRepository: ProductJpaRepository): ProductRepository = ProductRepositoryImpl(productJpaRepository)
+
+    @Bean
+    fun productReader(productJpaRepository: ProductJpaRepository): ProductReader = ProductReaderImpl(productJpaRepository)
 }
