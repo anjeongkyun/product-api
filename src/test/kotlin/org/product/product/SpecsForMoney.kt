@@ -11,7 +11,7 @@ class SpecsForMoney {
     @Test
     fun `Sut는 생성할 때 amount의 값이 0보다 작으면 예외를 반환한다`() {
         // Arrange
-        val amount = -1
+        val amount = -1L
 
         // Act && Assert
         assertThrows<IllegalArgumentException> { Money(amount) }
@@ -23,7 +23,7 @@ class SpecsForMoney {
         "1",
         "100",
     )
-    fun `Sut는 생성할 때 amount의 값이 0보다 크거나 같으면 예외를 반환하지 않는다`(amount: Int) {
+    fun `Sut는 생성할 때 amount의 값이 0보다 크거나 같으면 예외를 반환하지 않는다`(amount: Long) {
         // Act && Assert
         assertDoesNotThrow { Money(amount) }
     }
