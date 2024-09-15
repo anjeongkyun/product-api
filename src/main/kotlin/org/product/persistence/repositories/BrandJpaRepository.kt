@@ -1,6 +1,6 @@
-package org.product.data.repositories
+package org.product.persistence.repositories
 
-import org.product.data.model.BrandDataModel
+import org.product.persistence.model.BrandDataModel
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface BrandJpaRepository : JpaRepository<BrandDataModel, Long> {

@@ -1,7 +1,7 @@
-package org.product.data.mappers
+package org.product.persistence.mappers
 
-import org.product.data.model.BrandDataModel
 import org.product.domainmodel.entities.Brand
+import org.product.persistence.model.BrandDataModel
 
 fun Brand.toDataModel() =
     BrandDataModel(

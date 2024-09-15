@@ -1,4 +1,4 @@
-package org.product.data.model
+package org.product.persistence.model
 
 import jakarta.persistence.*
 
@@ -9,7 +9,6 @@ data class BrandDataModel(
     val id: Long?,
     @Column(unique = true)
     val name: String,
-
     val isDeleted: Boolean,
 ) {
     fun delete(): BrandDataModel = this.copy(isDeleted = true)

@@ -1,8 +1,8 @@
 package org.product
 
-import org.product.data.repositories.BrandJpaRepository
-import org.product.data.repositories.BrandRepositoryImpl
 import org.product.domainmodel.repository.BrandRepository
+import org.product.persistence.repositories.BrandJpaRepository
+import org.product.persistence.repositories.BrandRepositoryImpl
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 

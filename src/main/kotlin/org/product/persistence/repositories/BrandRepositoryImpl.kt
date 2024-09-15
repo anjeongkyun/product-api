@@ -1,11 +1,11 @@
-package org.product.data.repositories
+package org.product.persistence.repositories
 
-import org.product.data.mappers.toDataModel
-import org.product.data.mappers.toDomainEntity
 import org.product.domainmodel.entities.Brand
 import org.product.domainmodel.exceptions.ErrorProperty
 import org.product.domainmodel.exceptions.InvariantViolationException
 import org.product.domainmodel.repository.BrandRepository
+import org.product.persistence.mappers.toDataModel
+import org.product.persistence.mappers.toDomainEntity
 import org.springframework.dao.DataIntegrityViolationException
 
 class BrandRepositoryImpl(
