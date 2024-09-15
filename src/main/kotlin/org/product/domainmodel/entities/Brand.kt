@@ -7,6 +7,11 @@ data class Brand(
     val id: Long?,
     val name: String,
 ) {
+    fun changeName(name: String): Brand {
+        validateInvariant(name)
+        return this.copy(name = name)
+    }
+
     companion object {
         fun create(name: String): Brand {
             validateInvariant(name)

@@ -1,4 +1,4 @@
-package org.product
+package org.product.product
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow

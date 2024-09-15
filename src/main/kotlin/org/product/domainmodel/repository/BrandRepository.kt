@@ -8,11 +8,13 @@ interface BrandRepository {
     fun update(
         id: Long,
         modifier: (Brand) -> Brand,
-    )
+    ): Brand
 
     fun delete(id: Long)
 
     fun findAll(): List<Brand>
 
     fun findByName(name: String): Brand?
+
+    fun get(id: Long): Brand
 }

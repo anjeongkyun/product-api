@@ -1,4 +1,4 @@
-package org.product
+package org.product.brand
 
 import autoparams.AutoSource
 import org.assertj.core.api.Assertions.assertThat
@@ -22,9 +22,7 @@ class SpecsForBrand {
 
     @ParameterizedTest
     @AutoSource
-    fun `Sut는 팩토리 메서드를 통해 객체를 생성할 수 있다`(
-        name: String
-    ) {
+    fun `Sut는 팩토리 메서드를 통해 객체를 생성할 수 있다`(name: String) {
         val actual = Brand.create(name)
 
         assertThat(actual.id).isNull()

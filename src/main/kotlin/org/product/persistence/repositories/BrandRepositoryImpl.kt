@@ -33,26 +33,12 @@ class BrandRepositoryImpl(
     override fun update(
         id: Long,
         modifier: (Brand) -> Brand,
-    ) {
-        TODO("Not yet implemented")
-    }
+    ) = modifier(get(id))
+        .let { brandJpaRepository.save(it.toDataModel()) }
+        .toDomainEntity()
 
     override fun delete(id: Long) {
-        val dataModel =
-            brandJpaRepository
-                .findById(id)
-                .orElseThrow {
-                    throw InvariantViolationException(
-                        message = "Brand not found",
-                        errorProperties =
-                            listOf(
-                                ErrorProperty(
-                                    key = "id",
-                                    reason = ErrorProperty.ErrorReason.NotFound,
-                                ),
-                            ),
-                    )
-                }
+        val dataModel = get(id).toDataModel()
         val deletingDataModel = dataModel.delete()
         brandJpaRepository.save(deletingDataModel)
     }
@@ -62,4 +48,20 @@ class BrandRepositoryImpl(
     override fun findByName(name: String): Brand? {
         TODO("Not yet implemented")
     }
+
+    override fun get(id: Long): Brand =
+        brandJpaRepository
+            .findById(id)
+            .orElseThrow {
+                throw InvariantViolationException(
+                    message = "Brand not found",
+                    errorProperties =
+                        listOf(
+                            ErrorProperty(
+                                key = "id",
+                                reason = ErrorProperty.ErrorReason.NotFound,
+                            ),
+                        ),
+                )
+            }.toDomainEntity()
 }

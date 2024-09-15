@@ -1,9 +1,10 @@
-package org.product
+package org.product.brand
 
 import autoparams.AutoSource
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
+import org.product.TestRepositoryConfiguration
 import org.product.api.config.DataSourceConfig
 import org.product.contracts.commands.DeleteBrandCommand
 import org.product.domainmodel.entities.Brand
