@@ -14,7 +14,7 @@ class GetProductLowestAmountPerCategoryUseCase(
         ProductCategory.entries
             .toList()
             .map(::getLowestPriceViewForCategory)
-            .foldLowestCategoriesView()
+            .foldLowestAmountView()
             .toResponse()
 
     private fun getLowestPriceViewForCategory(category: ProductCategory): Pair<ProductCategoryLowestAmountView, Long> {
@@ -36,7 +36,7 @@ class GetProductLowestAmountPerCategoryUseCase(
         return lowestPriceView to minPriceProduct.amount.amount
     }
 
-    private fun List<Pair<ProductCategoryLowestAmountView, Long>>.foldLowestCategoriesView(): Pair<List<ProductCategoryLowestAmountView>, Long> =
+    private fun List<Pair<ProductCategoryLowestAmountView, Long>>.foldLowestAmountView(): Pair<List<ProductCategoryLowestAmountView>, Long> =
         fold(
             initial = Pair(emptyList(), 0L),
             operation = { (categoryList, totalAmount), (categoryLowestAmountView, productAmount) ->
