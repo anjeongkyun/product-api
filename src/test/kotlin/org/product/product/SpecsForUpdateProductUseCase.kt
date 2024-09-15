@@ -49,7 +49,7 @@ class SpecsForUpdateProductUseCase {
             UpdateProductCommand(
                 id = createdProduct1.id!!,
                 title = createdProduct2.title,
-                amount = createdProduct1.amount,
+                amount = createdProduct1.amount.amount,
             )
 
         // Act && Assert
@@ -74,7 +74,7 @@ class SpecsForUpdateProductUseCase {
             UpdateProductCommand(
                 id = createdProduct.id!!,
                 title = createdProduct.title,
-                amount = createdProduct.amount,
+                amount = createdProduct.amount.amount,
             )
 
         // Act
@@ -85,7 +85,7 @@ class SpecsForUpdateProductUseCase {
 
         assertThat(actual).isNotNull
         assertThat(actual!!.title).isEqualTo(command.title)
-        assertThat(actual.amount).isEqualTo(command.amount)
+        assertThat(actual.amount.amount).isEqualTo(command.amount)
         assertThat(actual.updatedDateTime)
             .isCloseTo(OffsetDateTime.now(), within(1, ChronoUnit.SECONDS))
     }

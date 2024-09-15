@@ -6,6 +6,7 @@ import org.product.domainmodel.exceptions.ErrorProperty
 import org.product.domainmodel.exceptions.InvariantViolationException
 import org.product.domainmodel.repository.BrandRepository
 import org.product.domainmodel.repository.ProductRepository
+import org.product.domainmodel.valueobject.Money
 
 class CreateProductUseCase(
     private val productRepository: ProductRepository,
@@ -19,7 +20,7 @@ class CreateProductUseCase(
                 title = command.title,
                 category = command.category,
                 brand = brand,
-                amount = command.amount,
+                amount = Money(amount = command.amount),
             )
         productRepository.create(product)
     }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.product.domainmodel.exceptions.InvariantViolationException
 import org.product.domainmodel.valueobject.Money
 
 class SpecsForMoney {
@@ -14,7 +15,7 @@ class SpecsForMoney {
         val amount = -1L
 
         // Act && Assert
-        assertThrows<IllegalArgumentException> { Money(amount) }
+        assertThrows<InvariantViolationException> { Money(amount) }
     }
 
     @ParameterizedTest

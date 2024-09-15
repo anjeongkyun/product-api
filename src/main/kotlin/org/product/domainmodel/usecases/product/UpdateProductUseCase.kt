@@ -5,6 +5,7 @@ import org.product.domainmodel.exceptions.ErrorProperty
 import org.product.domainmodel.exceptions.InvariantViolationException
 import org.product.domainmodel.repository.BrandRepository
 import org.product.domainmodel.repository.ProductRepository
+import org.product.domainmodel.valueobject.Money
 
 class UpdateProductUseCase(
     private val productRepository: ProductRepository,
@@ -23,7 +24,7 @@ class UpdateProductUseCase(
             modifier = {
                 it.update(
                     title = command.title,
-                    amount = command.amount,
+                    amount = Money(amount = command.amount),
                 )
             },
         )

@@ -48,7 +48,7 @@ class SpecsForCreateProductUseCase {
                 title = product.title,
                 category = product.category,
                 brandId = createdBrand.id!!,
-                amount = product.amount,
+                amount = product.amount.amount,
             )
 
         // Act && Assert
@@ -72,7 +72,7 @@ class SpecsForCreateProductUseCase {
                 title = product.title,
                 category = product.category,
                 brandId = createdBrand.id!!,
-                amount = product.amount,
+                amount = product.amount.amount,
             )
 
         // Act
@@ -87,7 +87,7 @@ class SpecsForCreateProductUseCase {
         assertThat(actual.category).isEqualTo(command.category)
         assertThat(actual.brand.id).isEqualTo(command.brandId)
         assertThat(actual.brand.name).isEqualTo(createdBrand.name)
-        assertThat(actual.amount).isEqualTo(command.amount)
+        assertThat(actual.amount.amount).isEqualTo(command.amount)
         assertThat(actual.createdDateTime)
             .isCloseTo(OffsetDateTime.now(), within(1, ChronoUnit.SECONDS))
         assertThat(actual.updatedDateTime)
