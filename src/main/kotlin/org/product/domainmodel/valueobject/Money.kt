@@ -1,10 +1,24 @@
 package org.product.domainmodel.valueobject
 
+import org.product.domainmodel.exceptions.ErrorProperty
+import org.product.domainmodel.exceptions.InvariantViolationException
+
 @JvmInline
 value class Money(
-    val amount: Int,
+    val amount: Long,
 ) {
     init {
-        require(amount >= 0) { "금액은 0보다 작을 수 없습니다." }
+        require(amount >= 0) {
+            throw InvariantViolationException(
+                message = "Money amount cannot be negative",
+                errorProperties =
+                    listOf(
+                        ErrorProperty(
+                            key = "amount",
+                            reason = ErrorProperty.ErrorReason.NotAvailable,
+                        ),
+                    ),
+            )
+        }
     }
 }
