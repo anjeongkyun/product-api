@@ -19,6 +19,7 @@ import org.product.domainmodel.valueobject.Order
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ContextConfiguration
+import java.time.OffsetDateTime
 
 @DataJpaTest
 @ContextConfiguration(classes = [DataSourceConfig::class, TestRepositoryConfiguration::class])
@@ -67,7 +68,7 @@ class SpecsForGetProductLowestAmountPerCategoryUseCase {
 
             val minPriceProduct =
                 productReader
-                    .readTopByCategoryOrderByAmount(category, Order.ASC)
+                    .readByCategoryOrderByAmount(category, Order.ASC)
                     .first()
 
             assertThat(lowestPriceView.lowestAmountBrand.productAmount).isEqualTo(minPriceProduct.amount.amount)
@@ -78,7 +79,7 @@ class SpecsForGetProductLowestAmountPerCategoryUseCase {
             ProductCategory.entries
                 .map { category ->
                     productReader
-                        .readTopByCategoryOrderByAmount(category, Order.ASC)
+                        .readByCategoryOrderByAmount(category, Order.ASC)
                         .first()
                         .amount.amount
                 }.sum()
@@ -110,7 +111,15 @@ class SpecsForGetProductLowestAmountPerCategoryUseCase {
         createdBrands.forEachIndexed { index, brand ->
             ProductCategory.entries.forEach { category ->
                 val amount = categoryPrices[category]?.get(index) ?: 0L
-                productRepository.create(product.copy(id = null, category = category, brand = brand, amount = Money(amount)))
+                productRepository.create(
+                    product.copy(
+                        id = null,
+                        category = category,
+                        brand = brand,
+                        amount = Money(amount),
+                        createdDateTime = OffsetDateTime.now(),
+                    ),
+                )
             }
         }
     }

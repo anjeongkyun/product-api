@@ -19,7 +19,7 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
         ORDER BY p.amount ASC
         """,
     )
-    fun findTopByCategoryOrderByAmountAsc(
+    fun findByCategoryOrderByAmountAsc(
         @Param("category") category: ProductCategory,
     ): List<ProductDataModel>
 
@@ -30,9 +30,26 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
         ORDER BY p.amount DESC 
         """,
     )
-    fun findTopByCategoryOrderByAmountDesc(
+    fun findByCategoryOrderByAmountDesc(
         @Param("category") category: ProductCategory,
     ): List<ProductDataModel>
 
     fun findAllByIsDeletedFalse(): List<ProductDataModel>
+
+    @Query(
+        """
+    SELECT p
+    FROM ProductDataModel p
+    WHERE p.amount = (
+        SELECT MIN(p2.amount)
+        FROM ProductDataModel p2
+        WHERE p2.category = p.category
+    )
+    AND p.category IN :categories
+    ORDER BY p.createdDateTime DESC
+        """,
+    )
+    fun findLowestPriceProductsForCategories(
+        @Param("categories") categories: List<ProductCategory>,
+    ): List<ProductDataModel>
 }
