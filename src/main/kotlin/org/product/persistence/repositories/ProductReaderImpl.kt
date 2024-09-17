@@ -37,6 +37,11 @@ class ProductReaderImpl(
             .findByBrandId(brandId)
             .map { it.toDomainEntity() }
 
+    override fun readLowestAndHighestPriceProductsByCategory(category: ProductCategory): List<Product> =
+        productJpaRepository
+            .findLowestAndHighestPriceProductsByCategory(category.name)
+            .map { it.toDomainEntity() }
+
     private fun findByCategory(
         order: Order,
         category: ProductCategory,

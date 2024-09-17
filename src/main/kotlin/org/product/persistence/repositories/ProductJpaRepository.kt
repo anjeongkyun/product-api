@@ -84,4 +84,25 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
     ): List<ProductDataModel>
 
     fun findByBrandId(brandId: Long): List<ProductDataModel>
+
+    @Query(
+        """
+    SELECT p.*
+    FROM products p
+    WHERE p.amount = (
+        SELECT MIN(amount)
+        FROM products
+        WHERE category = :category
+    )
+    OR p.amount = (
+        SELECT MAX(amount)
+        FROM products
+        WHERE category = :category
+    )
+        """,
+        nativeQuery = true,
+    )
+    fun findLowestAndHighestPriceProductsByCategory(
+        @Param("category") category: String,
+    ): List<ProductDataModel>
 }

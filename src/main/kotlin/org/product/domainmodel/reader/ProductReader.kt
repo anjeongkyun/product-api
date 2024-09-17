@@ -18,4 +18,6 @@ interface ProductReader {
     fun readLowestPricedBrandProductsByCategories(categories: List<ProductCategory>): List<Product>
 
     fun readByBrandId(brandId: Long): List<Product>
+
+    fun readLowestAndHighestPriceProductsByCategory(category: ProductCategory): List<Product>
 }
