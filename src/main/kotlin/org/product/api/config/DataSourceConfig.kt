@@ -9,4 +9,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = ["org.product"])
 @EntityScan("org.product")
-open class DataSourceConfig
+class DataSourceConfig
