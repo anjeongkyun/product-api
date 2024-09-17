@@ -5,7 +5,13 @@ import org.product.domainmodel.entities.ProductCategory
 import java.time.OffsetDateTime
 
 @Entity
-@Table(name = "products")
+@Table(
+    name = "products",
+    indexes = [
+        Index(name = "idx_category_1", columnList = "category"),
+        Index(name = "idx_brand_id_1", columnList = "brand_id"),
+    ],
+)
 data class ProductDataModel(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long?,

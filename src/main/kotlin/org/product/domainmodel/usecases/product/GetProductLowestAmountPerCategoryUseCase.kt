@@ -1,7 +1,7 @@
 package org.product.domainmodel.usecases.product
 
 import org.product.contracts.queries.BrandAmountConfiguration
-import org.product.contracts.queries.GetProductLowestAmountPerCategoryQueryResponse
+import org.product.contracts.queries.GetProductLowestAmountPerCategoryQueryView
 import org.product.contracts.queries.ProductCategoryLowestAmountView
 import org.product.domainmodel.entities.Product
 import org.product.domainmodel.entities.ProductCategory
@@ -11,7 +11,7 @@ import org.product.domainmodel.valueobject.Order
 class GetProductLowestAmountPerCategoryUseCase(
     private val productReader: ProductReader,
 ) {
-    fun process(): GetProductLowestAmountPerCategoryQueryResponse =
+    fun process(): GetProductLowestAmountPerCategoryQueryView =
         readLowestPriceProductsForCategories()
             .mapToLowestPriceView()
             .foldLowestAmountView()
@@ -47,8 +47,8 @@ class GetProductLowestAmountPerCategoryUseCase(
             },
         )
 
-    private fun Pair<List<ProductCategoryLowestAmountView>, Long>.toResponse(): GetProductLowestAmountPerCategoryQueryResponse =
-        GetProductLowestAmountPerCategoryQueryResponse(
+    private fun Pair<List<ProductCategoryLowestAmountView>, Long>.toResponse(): GetProductLowestAmountPerCategoryQueryView =
+        GetProductLowestAmountPerCategoryQueryView(
             lowestAmountProducts = first,
             totalAmount = second,
         )

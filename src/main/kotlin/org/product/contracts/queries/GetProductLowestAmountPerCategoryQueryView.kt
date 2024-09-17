@@ -1,6 +1,6 @@
 package org.product.contracts.queries
 
-data class GetProductLowestAmountPerCategoryQueryResponse(
+data class GetProductLowestAmountPerCategoryQueryView(
     val lowestAmountProducts: List<ProductCategoryLowestAmountView>,
     val totalAmount: Long,
 )

@@ -13,7 +13,9 @@ class ProductReaderImpl(
     override fun readByCategoryOrderByAmount(
         category: ProductCategory,
         order: Order,
-    ): List<Product> = findByCategory(order, category).map { it.toDomainEntity() }
+    ): List<Product> =
+        findByCategory(order, category)
+            .map { it.toDomainEntity() }
 
     override fun readLowestPriceProductsForCategories(
         categories: List<ProductCategory>,
@@ -23,6 +25,17 @@ class ProductReaderImpl(
             .findLowestPriceProductsForCategories(
                 ProductCategory.entries,
             ).map { it.toDomainEntity() }
+
+    override fun readLowestPricedBrandProductsByCategories(categories: List<ProductCategory>): List<Product> =
+        productJpaRepository
+            .findLowestPricedBrandProductsByCategories(
+                categories.map { it.name },
+            ).map { it.toDomainEntity() }
+
+    override fun readByBrandId(brandId: Long): List<Product> =
+        productJpaRepository
+            .findByBrandId(brandId)
+            .map { it.toDomainEntity() }
 
     private fun findByCategory(
         order: Order,

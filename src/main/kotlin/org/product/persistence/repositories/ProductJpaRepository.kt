@@ -52,4 +52,36 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
     fun findLowestPriceProductsForCategories(
         @Param("categories") categories: List<ProductCategory>,
     ): List<ProductDataModel>
+
+    @Query(
+        value = """
+    SELECT pdm.*
+    FROM products pdm
+    WHERE pdm.brand_id = (
+        SELECT brand_id
+        FROM (
+            SELECT brand_id, SUM(amount) AS total_amount
+            FROM products
+            WHERE category IN :categories
+            GROUP BY brand_id
+            HAVING SUM(amount) = (
+                SELECT MIN(total_amount)
+                FROM (
+                    SELECT SUM(amount) AS total_amount
+                    FROM products
+                    WHERE category IN :categories
+                    GROUP BY brand_id
+                ) AS totals
+            )
+        ) AS min_brands
+    )
+    AND pdm.category IN :categories
+    """,
+        nativeQuery = true,
+    )
+    fun findLowestPricedBrandProductsByCategories(
+        @Param("categories") categories: List<String>,
+    ): List<ProductDataModel>
+
+    fun findByBrandId(brandId: Long): List<ProductDataModel>
 }
