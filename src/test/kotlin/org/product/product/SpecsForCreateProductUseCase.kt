@@ -79,7 +79,11 @@ class SpecsForCreateProductUseCase {
         sut.execute(command)
 
         // Assert
-        val actual = productRepository.findAll().firstOrNull()
+        val actual =
+            productRepository.findByBrandIdAndTitle(
+                brandId = createdBrand.id!!,
+                title = command.title,
+            )
 
         assertThat(actual).isNotNull
         assertThat(actual!!.id).isNotNull

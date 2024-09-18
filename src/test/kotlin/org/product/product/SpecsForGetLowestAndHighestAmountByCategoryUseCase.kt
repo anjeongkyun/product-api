@@ -4,6 +4,7 @@ import autoparams.AutoSource
 import autoparams.customization.Customization
 import healingpaper.unittest.customizer.ProductCustomizer
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.product.TestRepositoryConfiguration
 import org.product.api.config.DataSourceConfig
@@ -16,6 +17,7 @@ import org.product.domainmodel.repository.BrandRepository
 import org.product.domainmodel.repository.ProductRepository
 import org.product.domainmodel.usecases.product.GetLowestAndHighestAmountByCategoryUseCase
 import org.product.domainmodel.valueobject.Money
+import org.product.persistence.repositories.ProductJpaRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.test.context.ContextConfiguration
@@ -31,6 +33,14 @@ class SpecsForGetLowestAndHighestAmountByCategoryUseCase {
 
     @Autowired
     private lateinit var brandRepository: BrandRepository
+
+    @Autowired
+    private lateinit var productJpaRepository: ProductJpaRepository
+
+    @BeforeEach
+    fun setUp() {
+        productJpaRepository.deleteAll()
+    }
 
     @AutoSource
     @ParameterizedTest

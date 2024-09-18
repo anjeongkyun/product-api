@@ -81,7 +81,10 @@ class SpecsForUpdateProductUseCase {
         sut.execute(command)
 
         // Assert
-        val actual = productRepository.findAll().firstOrNull()
+        val actual =
+            productRepository
+                .findAll()
+                .firstOrNull { it.id == createdProduct.id }
 
         assertThat(actual).isNotNull
         assertThat(actual!!.title).isEqualTo(command.title)

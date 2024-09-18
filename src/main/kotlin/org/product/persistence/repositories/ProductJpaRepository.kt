@@ -89,16 +89,20 @@ interface ProductJpaRepository : JpaRepository<ProductDataModel, Long> {
         """
     SELECT p.*
     FROM products p
-    WHERE p.amount = (
-        SELECT MIN(amount)
-        FROM products
-        WHERE category = :category
+    WHERE 
+    (
+        p.amount = (
+            SELECT MIN(amount)
+            FROM products
+            WHERE category = :category
+        )
+        OR p.amount = (
+            SELECT MAX(amount)
+            FROM products
+            WHERE category = :category
+        )
     )
-    OR p.amount = (
-        SELECT MAX(amount)
-        FROM products
-        WHERE category = :category
-    )
+    AND category = :category
         """,
         nativeQuery = true,
     )

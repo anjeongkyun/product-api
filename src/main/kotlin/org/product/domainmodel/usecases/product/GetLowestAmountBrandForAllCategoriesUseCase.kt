@@ -12,13 +12,13 @@ class GetLowestAmountBrandForAllCategoriesUseCase(
     fun process(): GetLowestAmountBrandForAllCategoriesQueryView {
         val lowestPricedBrandProducts = productReader.readLowestPricedBrandProductsByCategories(ProductCategory.entries)
         val brandMap = lowestPricedBrandProducts.groupBy { it.brand }
-        val brand = brandMap.keys.first()
+        val brand = brandMap.keys.firstOrNull()
         val totalAmount = lowestPricedBrandProducts.sumOf { it.amount.amount }
 
         return GetLowestAmountBrandForAllCategoriesQueryView(
             lowestAmountProductBrand =
                 LowestAmountProductBrandConfiguration(
-                    brandName = brand.name,
+                    brandName = brand?.name ?: "",
                     categories =
                         lowestPricedBrandProducts.map {
                             LowestAmountProductCategoriesConfiguration(
